@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+
+<!--
+	This file is rendered by express.js, when the rurl /chat/123456 is visited in a browser.
+	It includes jQuery, socket.io.js (it is automatically served by the socket.io library), 
+	and a few more JavaScript files that you should check out.
+-->
+
+<html>
+
+<head>
+
+	<title>Chat Room</title>
+
+	<link type="text/css" rel="stylesheet" href="../css/stylesheet.css" />
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans Condensed:300italic,300,700" rel="stylesheet" type="text/css">
+
+
+</head>
+
+<body>
+
+	<header class="banner">
+
+		<h1 class="bannertext">
+			<a href="http://tutorialzine.com/2014/03/nodejs-private-webchat/" id="logo">Sourcecode<span>71</span>:Private Chat Room</a>
+		</h1>
+
+	</header>
+
+
+	<section class="section">
+
+		<!-- These elements are displayed as white info cards in the middle of the screen -->
+
+		<div class="connected">
+
+			<img src="../img/unnamed.jpg" id="creatorImage" />
+
+			<div class="infoConnected">
+				<h2>Who are you?</h2>
+				<br/>
+
+				<form class="loginForm">
+					<input type="text" id="yourName" placeholder="Your nick name" /><br/>
+					<input type="text" id="yourEmail" placeholder="Your email address" /><br/>
+					<input type="submit" id="yourEnter" value="ENTER" />
+				</form>
+
+			</div>
+
+		</div>
+
+		<div class="personinside">
+
+			<img src="../img/unnamed.jpg" id="ownerImage" />
+
+			<div class="infoInside">
+				<h2>Chat with <span class="nickname-chat"></span></h2>
+				<br/>
+
+				<form class="loginForm">
+					<input type="text" id="hisName" placeholder="Your nick name" /><br/>
+					<input type="text" id="hisEmail" placeholder="Your email address" /><br/>
+					<input type="submit" id="hisEnter" value="CHAT" />
+				</form>
+
+			</div>
+
+		</div>
+
+		<div class="toomanypeople">
+
+			<h2>Oops, you can not join this chat!</h2>
+			<h5>There are already two people in it. Would you like to create a <a title="New Room" href="/create" id="room">new room</a>?</h5>
+
+		</div>
+
+		 <div id="chatRoom" class="chatscreen">
+                <div class="chatArea"> 
+                    <p>Chat</p>
+                    <div class="message-history"  >Show Message From:<span class="message-day" onclick="showMessageHistory(7)">7days</span><span class="message-day" onclick="showMessageHistory(30)">30 days</span> <span class="message-day" onclick="showMessageHistory(90)">3 Months</span></div>
+                    <ul class="chats">
+                        <!-- The chat messages will go here -->
+                    </ul>
+                </div>
+           <div class="card">
+		   <input id="chatMessage"type="text" placeholder="Enter Text" />
+		  </div>
+            </div>
+
+	</section>
+
+	<footer>
+
+		
+
+	</footer>
+
+	
+        <!--   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+        <script src="../js/jquery-1.8.2.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/moment.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="../js/chat.js"></script>
+        <script>
+                        function setCookie(c_name, value, exdays)
+                        {
+                            var exdate = new Date();
+                            exdate.setDate(exdate.getDate() + exdays);
+                            var c_value = escape(value) +
+                                    ((exdays == null) ? "" : ("; expires=" + exdate.toUTCString()));
+                            document.cookie = c_name + "=" + c_value;
+                        }
+
+                        function getCookie(c_name)
+                        {
+                            var i, x, y, ARRcookies = document.cookie.split(";");
+                            for (i = 0; i < ARRcookies.length; i++)
+                            {
+                                x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+                                y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+                                x = x.replace(/^\s+|\s+$/g, "");
+                                if (x == c_name)
+                                {
+                                    return unescape(y);
+                                }
+                            }
+                        }
+        </script>
+    </body>
+
+</html>

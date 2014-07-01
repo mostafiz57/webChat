@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<!--
+        This file is rendered by express.js, when the rurl /chat/123456 is visited in a browser.
+        It includes jQuery, socket.io.js (it is automatically served by the socket.io library), 
+        and a few more JavaScript files that you should check out.
+-->
+
+<html>
+
+    <head>
+
+        <title>Chat room </title>
+
+        <link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="../css/stylesheet.css" />
+        <link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css"/>
+        <!--   <link href="http://fonts.googleapis.com/css?family=Open+Sans Condensed:300italic,300,700" rel="stylesheet" type="text/css"> -->
+
+
+    </head>
+
+    <body>
+
+        <header class="banner">
+
+            <h1 class="bannertext">
+                <a href="" id="logo">CHAT ROOM</a>
+            </h1>
+
+            <div class="left">
+
+                <img src="../img/unnamed.jpg" id="leftImage" />
+
+                <div class="info">
+                    <h2><span class="nickname-left"></span> has left this chat.</h2>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <section class="section">
+
+            <!-- These elements are displayed as white info cards in the middle of the screen -->
+
+            <div class="connected chatDiv">
+
+                <img src="../img/unnamed.jpg" id="creatorImage" />
+
+                <div class="infoConnected">
+                    <h3>Who are you?</h3>
+                    <form class="loginForm">
+                        <input type="text" id="yourName" placeholder="Your nick name" /><br/>
+                        <input  type="text" id="yourEmail" placeholder="Your email address" /><br/>
+                        <input type="submit" id="yourEnter" value="Sign in" />
+                    </form>
+
+                </div>
+
+                <div class="front-signup">
+                    <h3>New to Chat Room?</strong> Sign up</h3>
+                    <form class="loginForm">
+                        <input type="text" id="yourName" placeholder="User name" /><br/>
+                        <input  type="text" id="yourEmail" placeholder="Your email address" /><br/>
+                        <input  type="password" id="yourPassword" placeholder="Your Password" /><br/>
+                        <input type="submit" id="yourSignUp" value="Sign up" />
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="personinside chatDiv">
+
+                <img src="../img/unnamed.jpg" id="ownerImage" />
+
+                <div class="infoInside">
+                    <h2>Welcome To Chat<span class="nickname-chat"></span></h2>
+                    <br/>
+
+                    <form class="loginForm">
+                        <input type="text" id="hisName" placeholder="Your nick name" /><br/>
+                        <input  type="text" id="hisEmail" placeholder="Your email address" /><br/>
+                        <input type="submit" id="hisEnter" value="CHAT" />
+                    </form>
+
+                    <div class="front-signup js-front-signup">
+                        <h2><strong>New to Twitter?</strong> Sign up</h2>
+
+                        <form method="post" id="frontpage-signup-form" class="t1-form signup" action="https://twitter.com/signup">
+
+                            <div class="field">
+                                <input type="text" placeholder="Full name" maxlength="20" name="user[name]" autocomplete="off" class="text-input">
+                            </div>
+                            <div class="field">
+                                <input type="text" placeholder="Email" name="user[email]" autocomplete="off" class="text-input email-input">
+                            </div>
+                            <div class="field">
+                                <input type="password" placeholder="Password" name="user[user_password]" class="text-input">
+                            </div>
+
+                            <input type="hidden" name="context" value="">
+                            <input type="hidden" name="authenticity_token" value="a11a2650b8a32100241ea95f01e02fedf032b49c">
+                            <button class="btn signup-btn u-pullRight" type="submit">
+                                Sign up for Twitter
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+
+            <div class="toomanypeople chatDiv">
+
+                <h2>Oops, you can not join this chat!</h2>
+                <h5>There are already two people in it. Would you like to create a <a title="New Room" href="/create" id="room">new room</a>?</h5>
+
+            </div>
+
+            <div class="nomessages chatDiv">
+
+                <img src="../img/unnamed.jpg" id="noMessagesImage" />
+
+                <div class="info" style="min-height:500px;">
+                    <h2>You are chatting with <span class="nickname-chat"></span>.</h2>
+                    <h3>Invite a friend by sending them this URL</h3>
+                    <div class="link">
+                        <a title="Invite a friend" href="" id="link"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="chatRoom" class="chatscreen chatDiv">
+                <div class="chatArea"> 
+                    <div class="message-history"  >Show Message From:<span class="message-day" onclick="showMessageHistory(7)">7days</span><span class="message-day" onclick="showMessageHistory(30)">30 days</span> <span class="message-day" onclick="showMessageHistory(90)">3 Months</span></div>
+                    <ul class="chats">
+                        <!-- The chat messages will go here -->
+                    </ul>
+                </div>
+                <div id="chatform" class="card">
+                    <input type="text" id="chatMessage" placeholder="Write something.."></textarea>
+                </div>
+            </div>
+
+
+        </section>
+
+
+        <footer>
+
+            <form>
+
+
+                <input style="display: none" type="submit" id="submit" value="SEND"/>
+
+            </form>
+
+        </footer>
+
+        <div class="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Modal title</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>One fine body…</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+        <script src="../js/jquery-1.8.2.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/moment.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="../js/chat.js"></script>
+        <script src="../js/global.js"></script>
+    </body>
+
+</html>
